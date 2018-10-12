@@ -1,0 +1,81 @@
+#include<stdio.h>
+#define NUMBER 2
+
+int main(){
+	int i,control1,control2;
+	double x1,y1,x1ort,y1ort,x1sum=0,y1sum=0,x2,y2,x2ort,y2ort,x2sum=0,y2sum=0;
+	double m1,m2,n1,n2,xmidpoint,ymidpoint;
+	double xtest,ytest,xcompare,xcontrol;
+	
+	printf("please enter 10 points as x and y coordinate  for the class 1\n");
+	
+	for(i=1;i<=NUMBER;i++){                     
+		scanf("%lf%lf",&x1,&y1);
+		x1sum+=x1;						/*  x coordinates for class 1   */
+		y1sum+=y1;						/*  y coordinates for class 1   */				
+		x1ort=x1sum/NUMBER;				/* 	average coordinate all of the x points for class 1*/
+		y1ort=y1sum/NUMBER;				/* 	average coordinate all of the y points for class 1*/
+	}
+		printf("average point for class 1 >  x1ort:%.1lf   y1ort:%.1lf\n",x1ort,y1ort);
+		
+		printf("\n\n");
+		
+		printf("please enter 10 points as x and y coordinate  for the class 2\n");
+	
+	for(i=1;i<=NUMBER;i++){
+		scanf("%lf%lf",&x2,&y2);
+		x2sum+=x2;							/*  x coordinates for class 2   */
+		y2sum+=y2;							/*  y coordinates for class 2   */
+		x2ort=x2sum/NUMBER;					/* 	average coordinate all of the x points for class 2 */
+		y2ort=y2sum/NUMBER;					/* 	average coordinate all of the y points for class 2 */
+	}
+		printf("average point for class 2 >  x2ort:%.1lf   y2ort:%.1lf\n\n",x2ort,y2ort);
+		
+		
+		
+			if(x2ort==x1ort){           	        /* in the process of dividing 0 is the case  */
+				xcontrol=0.00001;			        /* denominator should not be  0              */
+				m1=(y2ort-y1ort)/(xcontrol);   		/*slope of the connecting line               */
+			}
+			else{
+				m1=(y2ort-y1ort)/(x2ort-x1ort);
+			}
+					
+		xmidpoint=(x2ort+x1ort)/2;              /* seperating line and connecting line of the common point x point*/
+		ymidpoint=(y2ort+y1ort)/2;				/* seperating line and connecting line of the common point y point*/
+		
+		n1=ymidpoint-(m1*xmidpoint); 			/* constant of the equation of the connecting line */                                       
+		
+		m2=(-1.0)/m1;						    /*slope of the seperating line*/			
+		
+		n2=ymidpoint-(m2*xmidpoint);      	    /* constant of the equation of the seperating line */   		
+		
+		printf("m1 >%.7lf m2> %.7lf n1> %.7lf n2> %.7lf xmidpoint> %.7lf ymidpoint> %.7lf\n ",m1,m2,n1,n2,xmidpoint,ymidpoint);
+		do{
+			printf("please enter test point as x and y coordinate\n ");
+			control1=scanf("%lf",&xtest);       	/*gets the x coordinate for the test from the user*/
+			control2=scanf("%lf",&ytest);			/*gets the y coordinate for the test from the user*/
+	
+			if(control1!=0 && control2!=0){			/* do this unless the user enters the character*/
+				xcompare=(ytest-n2)/m2;     		/* xcompare is which is on the seperating line and will compare xtest coordinate*/
+			
+				if(x1ort<x2ort){					
+					if(xtest<xcompare){				
+					printf("class 1\n");			
+				}
+					else{
+					printf("class 2\n"); 
+				}	
+				}
+				else{
+					if(xtest<xcompare){
+					printf("class 2\n");
+				}
+					else{
+					printf("class 1\n");
+				}		
+				}
+				}		
+				}while(control1!=0 && control2!=0);	  	/* do this unless the user enters the character*/
+	return 0;
+}
