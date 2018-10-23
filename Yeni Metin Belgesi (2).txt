@@ -1,0 +1,78 @@
+#include<stdio.h>
+#define ARRAY_SIZE 10
+#define P1 0.5
+#define P2 20
+
+int main(){
+	int i,j,k;
+	double n,a=0,b=0,average,array[ARRAY_SIZE],sort_array[ARRAY_SIZE];
+	FILE *dosya;
+	
+	dosya=fopen("input.txt","r");
+	
+		while(!feof(dosya)){
+		
+			fscanf(dosya,"%lf",&array[i]);
+			printf("%.4lf\n",array[i]);
+			n=array[i];
+			i++;
+		
+		}	fclose(dosya);
+		
+		
+		for(i=0;i<ARRAY_SIZE;i++){
+			a=0,b=0;
+			n=array[i];
+			
+		
+			for(j=i;j>=0;j--)
+				{
+				b+=array[j];
+					
+				}
+				
+				if(i==0)
+				{
+					a=0;
+				}	
+				else{
+					a=b-array[i];
+					a/=i;
+				}
+				b/=(i+1);
+				
+				//printf("%lf %lf %lf\n",n,a,b);	             // en son çýkar  
+		}
+		
+		
+		printf("%.4lf",array[0]);
+		
+		if(!(b > a*(1+P1) || b < a*(1-P1) || a > n*P2 || a < n/P2)==0)
+		{
+			for(i=1;i<ARRAY_SIZE;i++){
+				printf("\n%.4lf ",array[i]);	
+			}
+		}
+	
+		else{
+			for(i=1;i<ARRAY_SIZE;i++){
+				printf(" %.4lf ",array[i]);	
+			}
+		
+		
+		}
+	
+
+		
+			
+	/*
+	dosya=fopen("output.txt","w");
+	
+	
+	
+	
+	fclose(dosya);
+	*/
+	
+	return 0;
+}
