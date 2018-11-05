@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<string.h>
+#define ROW 100
+#define	SIZE 250
+
+int main(){
+		FILE *dosya1,*dosya2,*dosya3;
+		char matris[ROW][SIZE],list[10],ch1,ch2;
+		int i=0,j=0,k=0,t,boyut;
+		
+		
+		dosya1=fopen("input1.txt","r");
+		
+			if(dosya1==NULL) 
+            printf("File Not Found "); 
+			
+			else{
+				while(ch1!=EOF){
+					ch1=getc(dosya1);
+					list[k]=ch1;
+					printf("%c",ch1);                  //sonradan silinecek
+					k++;
+			}
+			}
+			printf("\n");                                  //sonradan silinecek
+		
+		
+		
+		
+		dosya2=fopen("input2.txt","r");
+		
+			if(dosya2==NULL) 
+            	printf("File Not Found "); 
+            	
+			else{
+				while(!feof(dosya2)){
+					for(i=0;i<ROW;i++){
+						for(j=0;j<SIZE;j++){
+							ch2=getc(dosya2);
+							matris[i][j]=ch2;
+							printf("%c",ch2);					 //sonradan silinecek
+			}
+			}	
+			}
+			}
+	
+		
+		
+		while(!feof(dosya1)){
+			
+			
+			k=0;
+		while(list[k]!='\n'){
+				boyut++;
+				k++;
+			}
+			
+			
+			
+			while(!feof(dosya2)){
+				i=0,j=0,k=0;
+				
+				
+				for(t=0;t<strlen(list);t++){
+				
+				if(matris[i][j]==list[k]){
+					
+						printf("%c",list[k]);			          //sonradan silinecek					
+					
+					
+						if(matris[i][j+1]==list[k+1]){
+						
+						j++;
+						k++;
+						printf("%c",list[k+1]);                    //sonradan silinecek
+					}		
+					}	
+					}
+					}
+					}
+					
+		
+		for(i=0;i<SIZE;i++){
+			printf("%c",list[i]);
+		}
+	
+		//dosya3=fopen("output.txt","w");
+	
+	
+		fclose(dosya1);
+		fclose(dosya2);
+		//fclose(dosya3);
+	
+	return 0;
+		
+}
