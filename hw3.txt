@@ -5,84 +5,71 @@
 
 int main(){
 		FILE *dosya1,*dosya2,*dosya3;
-		char matris[ROW][SIZE],list[10],ch1,ch2;
-		int i=0,j=0,k=0,t,boyut;
+		char matris[ROW][SIZE],list[10][10],ch1,ch2;
+		char (*ptr)[10];	
+		int i=0,j=0,k=0,t,boyut,count,temp,status;
+		
+		ptr=list;
+		
 		
 		
 		dosya1=fopen("input1.txt","r");
-		
-			if(dosya1==NULL) 
-            printf("File Not Found "); 
-			
-			else{
-				while(ch1!=EOF){
-					ch1=getc(dosya1);
-					list[k]=ch1;
-					printf("%c",ch1);                  //sonradan silinecek
-					k++;
-			}
-			}
-			printf("\n");                                  //sonradan silinecek
+			i=0;
+			 status = fscanf(dosya1,"%s",(*ptr+i));
+            while( status!= EOF && status!=0){     
+                 printf("%s\n",(*ptr+i));                         //sonradan silinecek
+				  i++;            
+				  status = fscanf(dosya1,"%s",(*ptr+i));             
+		}
 		
 		
 		
 		
 		dosya2=fopen("input2.txt","r");
-		
-			if(dosya2==NULL) 
-            	printf("File Not Found "); 
-            	
-			else{
-				while(!feof(dosya2)){
-					for(i=0;i<ROW;i++){
-						for(j=0;j<SIZE;j++){
-							ch2=getc(dosya2);
-							matris[i][j]=ch2;
-							printf("%c",ch2);					 //sonradan silinecek
-			}
-			}	
-			}
-			}
-	
-		
-		
-		while(!feof(dosya1)){
-			
-			
-			k=0;
-		while(list[k]!='\n'){
-				boyut++;
-				k++;
-			}
-			
-			
-			
-			while(!feof(dosya2)){
-				i=0,j=0,k=0;
-				
-				
-				for(t=0;t<strlen(list);t++){
-				
-				if(matris[i][j]==list[k]){
-					
-						printf("%c",list[k]);			          //sonradan silinecek					
-					
-					
-						if(matris[i][j+1]==list[k+1]){
+		count=0;
+			while(fscanf(dosya2, "%s", matris[count]) != EOF){
 						
-						j++;
-						k++;
-						printf("%c",list[k+1]);                    //sonradan silinecek
-					}		
-					}	
-					}
-					}
-					}
+					printf("%s",matris[count]);
+					count++;
 					
+					}
+				printf("\n");
+				
+				
 		
-		for(i=0;i<SIZE;i++){
-			printf("%c",list[i]);
-		}
+		for(i=0; i < count; i++){	/*string içerisinde tarama yapmak için satýr sayýsý kadar döngü yaptým */
+
+		for(j=0; matris[i][j] != '\0'; j++){ 	/her satýrda null karakterine kadar tarama yaptým/
+			
+			temp = 0; 
+			
+			if(matris[i][j] == list[0]){	/eðer karakter kelimenin ilk harfi ile eþleþirse koþul saðlanýr/
+				temp++;
+				
+				for(k=1; k < strlen(list); k++){		/kelimeyi saða doðru kelime uzunluðu kadar karakterle karþýlaþtýrdým/
+					if(matris[i][j+k] == list[k])
+						temp++;
+				}
+				
+				if(temp == strlen(list))	/iþlem sonunda tempteki sayý kelime uzunluðuna eþitse kelime bulunmuþtur/
+					printf("%s (%d,%d) Horizontal",list, i+1, j+1); /kelimeyi yazdýrdým/
+					
+				else	temp = 1;	/kelime yatay olarak bulunamadýysa dikey olarak bakýlmasý için alttaki ifin koþulunu saðladým/
+				
+				
+				if(temp == 1){
+
+					for(k=1; k < strlen(list); k++){	/kelimeyi karakterin aþaðýsýna doðru dikey olarak kelime uzunluðu kadar karakterle karþýlaþtýrdým/
+						if(matris[i+k][j] == list[k])
+							temp++;
+					}
+					if(temp == strlen(list))	/iþlem sonunda tempteki sayý kelime uzunluðuna eþitse kelime bulunmuþtur/
+						printf("%s (%d,%d) Vertical",list, i+1, j+1);	/kelimeyi yazdýrdým/
+}
+}
+}
+}
+
 	
 		//dosya3=fopen("output.txt","w");
 	
